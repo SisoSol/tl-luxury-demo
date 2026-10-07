@@ -1,0 +1,3 @@
+/* Keep the gallery visible before WooCommerce's enhancement script runs. */
+.woocommerce div.product div.images{opacity:1!important}
+.tl-nav li{list-style:none;margin:0;padding:0}

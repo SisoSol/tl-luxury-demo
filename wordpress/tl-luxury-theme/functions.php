@@ -9,6 +9,7 @@ add_action('after_setup_theme', function () {
 });
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('tl-luxury', get_stylesheet_uri(), [], '2.0.0');
+    wp_enqueue_style('tl-luxury-rtl',get_template_directory_uri().'/rtl.css',['tl-luxury'],'2.0.3');
     wp_enqueue_script('tl-luxury', get_template_directory_uri().'/assets/store.js', [], '2.0.0', true);
 });
 remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper',10);
