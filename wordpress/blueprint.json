@@ -35,7 +35,7 @@
       "step": "installTheme",
       "themeData": {
         "resource": "url",
-        "url": "https://raw.githubusercontent.com/SisoSol/tl-luxury-demo/main/wordpress/tl-luxury-theme.zip"
+        "url": "https://raw.githubusercontent.com/SisoSol/tl-luxury-demo/main/wordpress/tl-luxury-theme.zip?v=2.0.2"
       },
       "options": {
         "activate": true
@@ -45,7 +45,7 @@
       "step": "installPlugin",
       "pluginData": {
         "resource": "url",
-        "url": "https://raw.githubusercontent.com/SisoSol/tl-luxury-demo/main/wordpress/tl-luxury-tools.zip"
+        "url": "https://raw.githubusercontent.com/SisoSol/tl-luxury-demo/main/wordpress/tl-luxury-tools.zip?v=2.0.2"
       },
       "options": {
         "activate": true
