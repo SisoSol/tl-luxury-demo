@@ -1,0 +1,9 @@
+<!doctype html>
+<html <?php language_attributes(); ?> dir="rtl">
+<head><meta charset="<?php bloginfo('charset'); ?>"><meta name="viewport" content="width=device-width,initial-scale=1"><?php wp_head(); ?></head>
+<body <?php body_class(); ?>><?php wp_body_open(); ?>
+<a class="tl-skip" href="#tl-main">דילוג לתוכן הראשי</a>
+<?php if(defined('TL_LUXURY_DEMO') && TL_LUXURY_DEMO): ?><div class="tl-demo">סביבת הדגמה אישית בדפדפן · מוצרים ומחירים להמחשה · אין חיוב כספי · <a href="<?php echo esc_url(admin_url('admin.php?page=tl-luxury')); ?>">ניהול החנות</a></div><?php endif; ?>
+<div class="tl-announcement"><?php echo esc_html(tl_text('announcement','T&L · תכשיטי מויסנייט')); ?></div>
+<header class="tl-header"><div class="tl-top"><p class="tl-note">תכשיטי מויסנייט <span>בגוני זהב וכסף</span></p><a class="tl-wordmark" href="<?php echo esc_url(home_url('/')); ?>" aria-label="T&L Luxury — עמוד הבית"><strong>T&amp;L</strong><span>MOISSANITE JEWELRY</span></a><div class="tl-tools"><a href="<?php echo esc_url(function_exists('wc_get_page_permalink')?wc_get_page_permalink('myaccount'):home_url('/')); ?>">החשבון שלי</a><a href="<?php echo esc_url(function_exists('wc_get_cart_url')?wc_get_cart_url():home_url('/')); ?>">סל הקניות<?php if(function_exists('WC') && WC()->cart) echo ' ('.esc_html(WC()->cart->get_cart_contents_count()).')'; ?></a></div></div>
+<nav class="tl-nav" aria-label="ניווט ראשי"><?php if(has_nav_menu('primary')){wp_nav_menu(['theme_location'=>'primary','container'=>false,'items_wrap'=>'%3$s','fallback_cb'=>false]);}else{foreach(['rings'=>'טבעות','earrings'=>'עגילים','necklaces'=>'שרשראות','bracelets'=>'צמידים','sets'=>'סטים'] as $slug=>$name) echo '<a href="'.esc_url(tl_category_link($slug)).'">'.esc_html($name).'</a>';echo '<a href="'.esc_url(add_query_arg('on_sale','1',wc_get_page_permalink('shop'))).'">מבצעים</a>'; } ?><a href="<?php echo esc_url(home_url('/about/')); ?>">על T&amp;L</a></nav></header>

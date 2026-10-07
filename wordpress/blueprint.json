@@ -1,0 +1,88 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "T&L Luxury — WooCommerce בעברית",
+    "author": "T&L Luxury",
+    "description": "Personal browser demo. Two native Shop Manager accounts. No real payment or mail."
+  },
+  "landingPage": "/wp-admin/admin.php?page=tl-luxury",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "steps": [
+    {
+      "step": "defineWpConfigConsts",
+      "consts": {
+        "TL_LUXURY_DEMO": true,
+        "WP_DEBUG": false
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "woocommerce"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/SisoSol/tl-luxury-demo/main/wordpress/tl-luxury-theme.zip"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/SisoSol/tl-luxury-demo/main/wordpress/tl-luxury-tools.zip"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "payplus-payment-gateway"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "blogname": "T&L Luxury",
+        "blogdescription": "תכשיטי מויסנייט בגוני זהב וכסף",
+        "permalink_structure": "/%postname%/",
+        "timezone_string": "Asia/Jerusalem",
+        "blog_public": 0
+      }
+    },
+    {
+      "step": "setSiteLanguage",
+      "language": "he_IL"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php require_once '/wordpress/wp-load.php'; tl_seed_demo(); foreach(['manager-one'=>'מנהל החנות הראשון','manager-two'=>'מנהל החנות השני'] as $login=>$name){$id=username_exists($login);if(!$id){$id=wp_insert_user(['user_login'=>$login,'user_pass'=>'Demo-TL-2026-Only!','display_name'=>$name,'role'=>'shop_manager']);}if(!is_wp_error($id))update_user_meta($id,'locale','he_IL');} update_option('woocommerce_db_version',WC_VERSION); delete_transient('_wc_activation_redirect'); delete_transient('wc_activation_redirect'); echo 'T&L: 20 demo products; two Shop Managers; no real payments; READY';"
+    },
+    {
+      "step": "login",
+      "username": "manager-one",
+      "password": "Demo-TL-2026-Only!"
+    }
+  ]
+}

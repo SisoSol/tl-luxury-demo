@@ -1,0 +1,448 @@
+[
+  {
+    "id": "tl-001",
+    "slug": "solitaire",
+    "name": "טבעת סוליטר קלאסית",
+    "category": "rings",
+    "price": 1290,
+    "compareAt": 0,
+    "metal": "gold",
+    "cut": "עגול",
+    "collection": "SIGNATURE",
+    "carat": 1,
+    "img": "https://cdn.shopify.com/s/files/1/1793/9109/products/GracemoissanitelabdiamondengagementringYellowgoldfourclawsolitairebrilliantroundcutLilyArkwright1.jpg?v=1669294339",
+    "source": "https://lilyarkwright.com/products/moissanite-engagement-ring-yellow-gold-grace-solitaire",
+    "isNew": true,
+    "description": "טבעת בגוון זהב עם אבן מרכזית בחיתוך עגול. לבחירה במידות 50–60. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "50",
+      "52",
+      "54",
+      "56",
+      "58",
+      "60"
+    ]
+  },
+  {
+    "id": "tl-002",
+    "slug": "oval-trilogy",
+    "name": "טבעת טרילוגיה אובלית",
+    "category": "rings",
+    "price": 1890,
+    "compareAt": 2290,
+    "metal": "gold",
+    "cut": "אובלי",
+    "collection": "SIGNATURE",
+    "carat": 2,
+    "img": "https://elevenfinejewelry.com/cdn/shop/files/DSC05927.png?v=1749657043",
+    "source": "https://elevenfinejewelry.com/products/the-navrit-ring",
+    "isNew": false,
+    "description": "טבעת בגוון זהב בעיצוב שלוש אבנים. לבחירה במידות 50–60. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "50",
+      "52",
+      "54",
+      "56",
+      "58",
+      "60"
+    ]
+  },
+  {
+    "id": "tl-003",
+    "slug": "pear-trilogy",
+    "name": "טבעת אובל וטיפות",
+    "category": "rings",
+    "price": 1690,
+    "compareAt": 0,
+    "metal": "gold",
+    "cut": "טיפה",
+    "collection": "SIGNATURE",
+    "carat": 2,
+    "img": "https://www.madeyoulook.ca/cdn/shop/files/DL652_14k-yellow-oval-and-pear-shape-moissanite-three-stone-ring.png?v=1749855929&width=800",
+    "source": "https://www.madeyoulook.ca/products/14k-yellow-three-stone-moissanite-ring-copy-1",
+    "isNew": false,
+    "description": "אבן בחיתוך אובלי לצד אבנים בחיתוך טיפה, בגוון זהב. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "50",
+      "52",
+      "54",
+      "56",
+      "58",
+      "60"
+    ]
+  },
+  {
+    "id": "tl-004",
+    "slug": "silver-solitaire",
+    "name": "טבעת סוליטר כסופה",
+    "category": "rings",
+    "price": 1190,
+    "compareAt": 1490,
+    "metal": "silver",
+    "cut": "עגול",
+    "collection": "PURE LIGHT",
+    "carat": 1,
+    "img": "https://lilyarkwright.com/cdn/shop/products/2GraceRoundMoissaniteLabDiamondEngagementRingWhiteGoldSolitaireLilyArkwright1newcolours_8f90c574-49f6-4c0f-975b-2ba0532a17e4_800x.jpg?v=1669827332",
+    "source": "https://lilyarkwright.com/products/grace-exquisite-four-prong-platinum-charles-colvard-forever-one-moissanite-brilliant-round-cut-solitaire-engagement-ring",
+    "isNew": false,
+    "description": "טבעת סוליטר בגוון כסף עם אבן בחיתוך עגול. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "50",
+      "52",
+      "54",
+      "56",
+      "58",
+      "60"
+    ]
+  },
+  {
+    "id": "tl-005",
+    "slug": "cathedral",
+    "name": "טבעת קתדרלה",
+    "category": "rings",
+    "price": 1590,
+    "compareAt": 0,
+    "metal": "silver",
+    "cut": "עגול",
+    "collection": "PURE LIGHT",
+    "carat": 2,
+    "img": "https://lilyarkwright.com/cdn/shop/files/elena-engagement-ring-white-gold-platinum-lily-arkwright-image-1_68f6094b-c685-4534-9e0b-c6a8ab8cac93_800x.jpg?v=1694257812",
+    "source": "https://lilyarkwright.com/products/elena-moissanite-solitaire-platinum-ring",
+    "isNew": true,
+    "description": "טבעת בעיצוב קתדרלה בגוון כסף. לבחירה במידות 50–60. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "50",
+      "52",
+      "54",
+      "56",
+      "58",
+      "60"
+    ]
+  },
+  {
+    "id": "tl-006",
+    "slug": "gold-studs",
+    "name": "עגילי סוליטר זהובים",
+    "category": "earrings",
+    "price": 690,
+    "compareAt": 0,
+    "metal": "gold",
+    "cut": "עגול",
+    "collection": "DAILY LIGHT",
+    "carat": 1,
+    "img": "https://lilyarkwright.com/cdn/shop/products/eloise-stud-earrings-yellow-gold-Lily-Arkwright-Image-1_900x.jpg?v=1680279932",
+    "source": "https://lilyarkwright.com/products/eloise-18k-yellow-gold-round-6-prong-earrings",
+    "isNew": false,
+    "description": "זוג עגילי סוליטר בגוון זהב. עיצוב קטן ופשוט לענידה יומיומית. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "מידה אחת"
+    ]
+  },
+  {
+    "id": "tl-007",
+    "slug": "gold-drop",
+    "name": "עגילי טיפה זהובים",
+    "category": "earrings",
+    "price": 990,
+    "compareAt": 1290,
+    "metal": "gold",
+    "cut": "עגול",
+    "collection": "AFTER DARK",
+    "carat": 2,
+    "img": "https://jewelrybyjohan.com/cdn/shop/files/612715-1.jpg?v=1750455522&width=800",
+    "source": "https://jewelrybyjohan.com/products/2-cttw-leverback-charles-colvard-moissanite-earrings-in-yellow-gold",
+    "isNew": false,
+    "description": "זוג עגילים בחיתוך טיפה בגוון זהב. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "מידה אחת"
+    ]
+  },
+  {
+    "id": "tl-008",
+    "slug": "silver-studs",
+    "name": "עגילי סוליטר כסופים",
+    "category": "earrings",
+    "price": 590,
+    "compareAt": 0,
+    "metal": "silver",
+    "cut": "עגול",
+    "collection": "DAILY LIGHT",
+    "carat": 1,
+    "img": "https://www.caringcarat.com/cdn/shop/files/S01.png?v=1760408274&width=800",
+    "source": "https://www.caringcarat.com/products/four-prong-stud-earrings",
+    "isNew": false,
+    "description": "זוג עגילי סוליטר בגוון כסף, בשיבוץ עגול. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "מידה אחת"
+    ]
+  },
+  {
+    "id": "tl-009",
+    "slug": "silver-drop",
+    "name": "עגילים תלויים כסופים",
+    "category": "earrings",
+    "price": 790,
+    "compareAt": 990,
+    "metal": "silver",
+    "cut": "עגול",
+    "collection": "AFTER DARK",
+    "carat": 1,
+    "img": "https://www.readyourheart.com/cdn/shop/products/HoopMoissaniteLeverbackEarringsInSterlingSilver_1.jpg?v=1663312974&width=800",
+    "source": "https://www.readyourheart.com/products/hoop-moissanite-leverback-earrings-in-sterling-silver",
+    "isNew": true,
+    "description": "זוג עגילים תלויים בגוון כסף. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "מידה אחת"
+    ]
+  },
+  {
+    "id": "tl-010",
+    "slug": "solitaire-necklace",
+    "name": "שרשרת סוליטר עגולה",
+    "category": "necklaces",
+    "price": 790,
+    "compareAt": 0,
+    "metal": "gold",
+    "cut": "עגול",
+    "collection": "DAILY LIGHT",
+    "carat": 1,
+    "img": "https://www.onecarat.world/cdn/shop/files/untitled.596.jpg?v=1712073142&width=800",
+    "source": "https://www.onecarat.world/products/round-moissanite-solitaire-pendant-1-00-ctw-in-14k-yellow-gold",
+    "isNew": false,
+    "description": "שרשרת בגוון זהב עם תליון סוליטר עגול. שלושה אורכים לבחירה. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "40 ס״מ",
+      "45 ס״מ",
+      "50 ס״מ"
+    ]
+  },
+  {
+    "id": "tl-011",
+    "slug": "halo-necklace",
+    "name": "שרשרת זוהר עדינה",
+    "category": "necklaces",
+    "price": 890,
+    "compareAt": 0,
+    "metal": "gold",
+    "cut": "עגול",
+    "collection": "SIGNATURE",
+    "carat": 1,
+    "img": "https://jewelaura.com/cdn/shop/files/Yellow-Gold-Round-Solid-Bail-Pendant-Cable_Chain-Front_cb647b22-b6e4-4103-8747-2d3d993e81ba.png?v=1758660089",
+    "source": "https://jewelaura.com/products/14k-gold-round-moissanite-solitaire-pendant-necklace-double-loop",
+    "isNew": false,
+    "description": "שרשרת בגוון זהב עם תליון משובץ. שלושה אורכים לבחירה. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "40 ס״מ",
+      "45 ס״מ",
+      "50 ס״מ"
+    ]
+  },
+  {
+    "id": "tl-012",
+    "slug": "fine-necklace",
+    "name": "שרשרת אור זהובה",
+    "category": "necklaces",
+    "price": 690,
+    "compareAt": 890,
+    "metal": "gold",
+    "cut": "עגול",
+    "collection": "DAILY LIGHT",
+    "carat": 1,
+    "img": "https://www.gialucia.com/cdn/shop/files/gold1_800x.png?v=1754844638",
+    "source": "https://www.gialucia.com/products/solitaire-pendant",
+    "isNew": false,
+    "description": "שרשרת בגוון זהב לשילוב עם עגילים או צמיד. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "40 ס״מ",
+      "45 ס״מ",
+      "50 ס״מ"
+    ]
+  },
+  {
+    "id": "tl-013",
+    "slug": "silver-necklace",
+    "name": "שרשרת אור כסופה",
+    "category": "necklaces",
+    "price": 650,
+    "compareAt": 0,
+    "metal": "silver",
+    "cut": "עגול",
+    "collection": "PURE LIGHT",
+    "carat": 1,
+    "img": "https://www.theiavalo.com.au/cdn/shop/products/O03A-1.png?v=1628483648",
+    "source": "https://www.theiavalo.com.au/products/copy-of-1ct-moissanite-necklace-925-sterling-silver-platinum-plated-round-pendant-necklace",
+    "isNew": true,
+    "description": "שרשרת בגוון כסף לשילוב עם עגילים או צמיד. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "40 ס״מ",
+      "45 ס״מ",
+      "50 ס״מ"
+    ]
+  },
+  {
+    "id": "tl-014",
+    "slug": "tennis-gold",
+    "name": "צמיד טניס זהוב",
+    "category": "bracelets",
+    "price": 1490,
+    "compareAt": 0,
+    "metal": "gold",
+    "cut": "עגול",
+    "collection": "SIGNATURE",
+    "carat": 3,
+    "img": "https://elandelle.com/cdn/shop/files/Yellow_Gold_Tennis_Bracelet_Front.jpg?v=1729111013&width=800",
+    "source": "https://elandelle.com/products/round-cut-yellow-gold-moissanite-tennis-bracelet",
+    "isNew": false,
+    "description": "צמיד טניס בגוון זהב, עם שורת אבנים משובצות. ארבע מידות לבחירה. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "16 ס״מ",
+      "17 ס״מ",
+      "18 ס״מ",
+      "19 ס״מ"
+    ]
+  },
+  {
+    "id": "tl-015",
+    "slug": "tennis-classic",
+    "name": "צמיד טניס קלאסי",
+    "category": "bracelets",
+    "price": 1290,
+    "compareAt": 1590,
+    "metal": "silver",
+    "cut": "עגול",
+    "collection": "PURE LIGHT",
+    "carat": 3,
+    "img": "https://therealjewelrycompany.com/cdn/shop/files/4mm-moissanite-tennis-bracelet-stockbraceletsthe-real-jewelry-company-840872.jpg?v=1734058496&width=800",
+    "source": "https://therealjewelrycompany.com/products/4mm-moissanite-tennis-bracelet-stock",
+    "isNew": false,
+    "description": "צמיד טניס בגוון זהב. מתאים לשילוב עם שרשרת או לענידה בנפרד. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "16 ס״מ",
+      "17 ס״מ",
+      "18 ס״מ",
+      "19 ס״מ"
+    ]
+  },
+  {
+    "id": "tl-016",
+    "slug": "tennis-silver",
+    "name": "צמיד טניס כסוף",
+    "category": "bracelets",
+    "price": 1390,
+    "compareAt": 0,
+    "metal": "silver",
+    "cut": "עגול",
+    "collection": "PURE LIGHT",
+    "carat": 3,
+    "img": "https://moderngemco.com/cdn/shop/files/web_ModernGemCo_r2_04H_6192_1200x.jpg?v=1706893040",
+    "source": "https://moderngemco.com/products/mae-3mm-round-tennis-bracelet",
+    "isNew": false,
+    "description": "צמיד טניס בגוון כסף. ארבע מידות לבחירה. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "16 ס״מ",
+      "17 ס״מ",
+      "18 ס״מ",
+      "19 ס״מ"
+    ]
+  },
+  {
+    "id": "tl-017",
+    "slug": "golden-hour-set",
+    "name": "סט Golden Hour",
+    "category": "sets",
+    "price": 1990,
+    "compareAt": 2280,
+    "metal": "gold",
+    "cut": "עגול",
+    "collection": "TOGETHER",
+    "carat": 1,
+    "img": "https://www.onecarat.world/cdn/shop/files/untitled.596.jpg?v=1712073142&width=800",
+    "secondImg": "https://elandelle.com/cdn/shop/files/Yellow_Gold_Tennis_Bracelet_Front.jpg?v=1729111013&width=800",
+    "source": "https://www.onecarat.world/products/round-moissanite-solitaire-pendant-1-00-ctw-in-14k-yellow-gold",
+    "secondSource": "https://elandelle.com/products/round-cut-yellow-gold-moissanite-tennis-bracelet",
+    "isNew": true,
+    "description": "שרשרת וצמיד בגוון זהב, שנבחרו כסט אחד. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "סט מלא"
+    ],
+    "includes": [
+      "שרשרת סוליטר עגולה",
+      "צמיד טניס זהוב"
+    ]
+  },
+  {
+    "id": "tl-018",
+    "slug": "pure-light-set",
+    "name": "סט Pure Light",
+    "category": "sets",
+    "price": 1790,
+    "compareAt": 2040,
+    "metal": "silver",
+    "cut": "עגול",
+    "collection": "TOGETHER",
+    "carat": 1,
+    "img": "https://www.theiavalo.com.au/cdn/shop/products/O03A-1.png?v=1628483648",
+    "secondImg": "https://moderngemco.com/cdn/shop/files/web_ModernGemCo_r2_04H_6192_1200x.jpg?v=1706893040",
+    "source": "https://www.theiavalo.com.au/products/copy-of-1ct-moissanite-necklace-925-sterling-silver-platinum-plated-round-pendant-necklace",
+    "secondSource": "https://moderngemco.com/products/mae-3mm-round-tennis-bracelet",
+    "isNew": true,
+    "description": "שרשרת וצמיד בגוון כסף, שנבחרו כסט אחד. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "סט מלא"
+    ],
+    "includes": [
+      "שרשרת אור כסופה",
+      "צמיד טניס כסוף"
+    ]
+  },
+  {
+    "id": "tl-019",
+    "slug": "daily-gold-set",
+    "name": "סט אור יומיומי",
+    "category": "sets",
+    "price": 1190,
+    "compareAt": 1380,
+    "metal": "gold",
+    "cut": "עגול",
+    "collection": "TOGETHER",
+    "carat": 1,
+    "img": "https://lilyarkwright.com/cdn/shop/products/eloise-stud-earrings-yellow-gold-Lily-Arkwright-Image-1_900x.jpg?v=1680279932",
+    "secondImg": "https://www.gialucia.com/cdn/shop/files/gold1_800x.png?v=1754844638",
+    "source": "https://lilyarkwright.com/products/eloise-18k-yellow-gold-round-6-prong-earrings",
+    "secondSource": "https://www.gialucia.com/products/solitaire-pendant",
+    "isNew": true,
+    "description": "שרשרת וצמיד בגוון זהב לשילוב יומיומי. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "סט מלא"
+    ],
+    "includes": [
+      "עגילי סוליטר זהובים",
+      "שרשרת אור זהובה"
+    ]
+  },
+  {
+    "id": "tl-020",
+    "slug": "evening-silver-set",
+    "name": "סט ערב כסוף",
+    "category": "sets",
+    "price": 1290,
+    "compareAt": 1440,
+    "metal": "silver",
+    "cut": "עגול",
+    "collection": "TOGETHER",
+    "carat": 1,
+    "img": "https://www.readyourheart.com/cdn/shop/products/HoopMoissaniteLeverbackEarringsInSterlingSilver_1.jpg?v=1663312974&width=800",
+    "secondImg": "https://www.theiavalo.com.au/cdn/shop/products/O03A-1.png?v=1628483648",
+    "source": "https://www.readyourheart.com/products/hoop-moissanite-leverback-earrings-in-sterling-silver",
+    "secondSource": "https://www.theiavalo.com.au/products/copy-of-1ct-moissanite-necklace-925-sterling-silver-platinum-plated-round-pendant-necklace",
+    "isNew": true,
+    "description": "שרשרת וצמיד בגוון כסף לשילוב בערב. פריט הדגמה — התמונה והמפרט להמחשה בלבד.",
+    "sizes": [
+      "סט מלא"
+    ],
+    "includes": [
+      "עגילים תלויים כסופים",
+      "שרשרת אור כסופה"
+    ]
+  }
+]

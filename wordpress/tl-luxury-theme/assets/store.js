@@ -1,0 +1,1 @@
+document.querySelector('[data-tl-text]')?.addEventListener('click',function(){const on=document.body.classList.toggle('tl-large');this.setAttribute('aria-pressed',String(on));this.textContent=on?'גודל טקסט רגיל':'הגדלת טקסט';});
