@@ -48,7 +48,7 @@ add_filter('woocommerce_enable_setup_wizard',function($enabled){return tl_is_dem
 function tl_seed_demo(){
     if(!tl_is_demo() || !class_exists('WooCommerce')) return;
     if(get_option('tl_demo_seeded')==='2') return;
-    wc_create_pages();
+    WC_Install::create_pages();
     $names=['rings'=>'טבעות','earrings'=>'עגילים','necklaces'=>'שרשראות','bracelets'=>'צמידים','sets'=>'סטים'];$categories=[];
     foreach($names as $slug=>$name){$term=get_term_by('slug',$slug,'product_cat');if(!$term){$new=wp_insert_term($name,'product_cat',['slug'=>$slug]);if(is_wp_error($new))continue;$categories[$slug]=$new['term_id'];}else{$categories[$slug]=$term->term_id;}}
     $data=json_decode(file_get_contents(__DIR__.'/catalogue.json'),true);
