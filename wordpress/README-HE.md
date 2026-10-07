@@ -6,7 +6,7 @@
 
 ## להתנסות בניהול
 
-[פתיחת סביבת WordPress ו־WooCommerce](https://playground.wordpress.net/?blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2FSisoSol%2Ftl-luxury-demo%2Fmain%2Fwordpress%2Fblueprint.json)
+[פתיחת סביבת WordPress ו־WooCommerce](https://playground.wordpress.net/?blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2FSisoSol%2Ftl-luxury-demo%2Fmain%2Fwordpress%2Fblueprint.json%3Fv%3D2.0.3)
 
 הטעינה הראשונה מתקינה WordPress, WooCommerce, תבנית T&L ותוסף PayPlus הרשמי. המערכת נכנסת אוטומטית לחשבון `manager-one`. החשבון השני הוא `manager-two`. סיסמת ההדגמה לשניהם היא `Demo-TL-2026-Only!`. אלו חשבונות של סביבת הדגמה אישית בדפדפן, לא פרטי גישה לחנות באינטרנט. להחלפת מנהל יוצאים מהחשבון ומתחברים לחשבון השני דרך מסך הכניסה של WordPress.
 
