@@ -1,12 +1,20 @@
 # T&L Luxury — חנות WooCommerce
 
+## עדכון ניווט, תמונות וטקסטים
+
+התפריט נמצא בשלושה קווים בצד ימין, גם במחשב וגם בנייד, ונפתח כלפי מטה. טקסט המותג שסופק משולב בעמוד על T&L.
+
+ב־**T&L — החנות**, בחירת תמונה פותחת את ספריית המדיה הרגילה של WordPress. אפשר להעלות תמונה מהמחשב עבור הפתיחה, הנייד, הסטים ועמוד המותג, ואז ללחוץ על **שמירת השינויים**. תמונות מוצרים עורכים בעמוד המוצר. קישור לעריכת טקסט האודות מופיע באותו לוח.
+
+בדמו העיצובי שב־GitHub Pages, מסך **תוכן האתר** מאפשר את אותן בחירות עם תצוגה מקדימה, עריכת פסקאות והחזרה לתמונה המקורית. התמונות שם נשמרות בדפדפן בלבד. עריכה בחנות WordPress המותקנת על שרת נשמרת במערכת החנות.
+
 ## מה כלול
 
 תבנית חנות בעברית, תוסף לוח ניהול ממוקד, ו־Blueprint להתנסות חינמית ב־WordPress Playground. המוצרים, המידות, המלאי, הקופונים והחשבונות נשמרים במערכת WooCommerce עצמה. אין חיבור סליקה פעיל בדמו.
 
 ## להתנסות בניהול
 
-[פתיחת סביבת WordPress ו־WooCommerce](https://playground.wordpress.net/?blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2FSisoSol%2Ftl-luxury-demo%2Fmain%2Fwordpress%2Fblueprint.json%3Fv%3D2.0.3)
+[פתיחת סביבת WordPress ו־WooCommerce](https://playground.wordpress.net/?blueprint-url=https%3A%2F%2Fraw.githubusercontent.com%2FSisoSol%2Ftl-luxury-demo%2Fmain%2Fwordpress%2Fblueprint.json%3Fv%3D3.0.0)
 
 הטעינה הראשונה מתקינה WordPress, WooCommerce, תבנית T&L ותוסף PayPlus הרשמי. המערכת נכנסת אוטומטית לחשבון `manager-one`. החשבון השני הוא `manager-two`. סיסמת ההדגמה לשניהם היא `Demo-TL-2026-Only!`. אלו חשבונות של סביבת הדגמה אישית בדפדפן, לא פרטי גישה לחנות באינטרנט. להחלפת מנהל יוצאים מהחשבון ומתחברים לחשבון השני דרך מסך הכניסה של WordPress.
 
