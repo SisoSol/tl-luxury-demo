@@ -1,0 +1,75 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "meta": {
+    "title": "T&L — clean installation acceptance recipe",
+    "author": "T&L",
+    "description": "No users, passwords, sample catalogue or provider credentials are supplied by this recipe."
+  },
+  "landingPage": "/wp-admin/admin.php?page=tl-luxury",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "steps": [
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "woocommerce"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installTheme",
+      "themeData": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/SisoSol/tl-luxury-demo/main/wordpress/tl-luxury-theme.zip?v=5.0.0"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "url",
+        "url": "https://raw.githubusercontent.com/SisoSol/tl-luxury-demo/main/wordpress/tl-luxury-tools.zip?v=5.0.0"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "payplus-payment-gateway"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "blogname": "T&L Luxury",
+        "blogdescription": "תכשיטי מואסנייט בגוני זהב וכסף",
+        "permalink_structure": "/%postname%/",
+        "timezone_string": "Asia/Jerusalem",
+        "blog_public": 0,
+        "woocommerce_currency": "ILS",
+        "woocommerce_default_country": "IL",
+        "woocommerce_enable_coupons": "yes"
+      }
+    },
+    {
+      "step": "setSiteLanguage",
+      "language": "he_IL"
+    }
+  ]
+}
