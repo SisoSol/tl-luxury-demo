@@ -2,7 +2,7 @@
 /**
  * Plugin Name: T&L — ניהול החנות
  * Description: A focused Hebrew WooCommerce dashboard and no-code storefront content editor. Demo seeding only runs when TL_LUXURY_DEMO is explicitly true.
- * Version: 3.0.0
+ * Version: 4.0.0
  * Requires PHP: 8.1
  * Requires Plugins: woocommerce
  * License: GPL-2.0-or-later
@@ -33,7 +33,7 @@ function tl_management_screen(){
     $links=[['edit.php?post_type=product','מוצרים','תמונות, מחירים, מידות ומלאי'],['admin.php?page=wc-orders','הזמנות','מצב הזמנה, לקוחות והחזרים'],['edit.php?post_type=shop_coupon','קופונים','קוד הנחה, תוקף ותנאים'],['edit-tags.php?taxonomy=product_cat&post_type=product','קולקציות','טבעות, עגילים, שרשראות, צמידים וסטים'],['admin.php?page=wc-admin&path=%2Fanalytics%2Foverview','דוחות','מכירות ומוצרים — נתוני אמת בלבד'],['admin.php?page=wc-settings&tab=shipping','משלוחים','אזורים, שיטות ומחירים']];
     echo '<div class="tl-actions">';foreach($links as $item)echo '<a class="tl-action" href="'.esc_url(admin_url($item[0])).'"><strong>'.esc_html($item[1]).'</strong>'.esc_html($item[2]).'</a>';echo '</div>';
     echo '<section class="tl-panel"><h2>עריכת עמוד הבית</h2><form action="'.esc_url(admin_url('admin-post.php')).'" method="post">';wp_nonce_field('tl_save_content');echo '<input type="hidden" name="action" value="tl_save_content">';
-    foreach(['hero_title'=>['כותרת ראשית',"יוקרה שנמצאת\nבפרטים."],'hero_text'=>['טקסט פתיחה',"נוצרו לרגעים המיוחדים,\nונועדו להאיר גם את היומיום."],'announcement'=>['הודעה בראש האתר','T&L · תכשיטי מואסנייט'],'sets_title'=>['כותרת אזור הסטים',"תכשיטים\nשמשתלבים."],'sets_text'=>['תיאור אזור הסטים',"שרשראות, צמידים ועגילים.\nיחד או בנפרד."]] as $key=>$field){echo '<label for="tl-'.$key.'">'.esc_html($field[0]).'</label><textarea id="tl-'.$key.'" name="'.$key.'">'.esc_textarea(get_option('tl_'.$key,$field[1])).'</textarea>';}
+    foreach(['hero_title'=>['כותרת ראשית',"יהלום הוא לא\nהדרך היחידה ליוקרה."],'hero_text'=>['טקסט פתיחה',"נוצרו לרגעים המיוחדים,\nונועדו להאיר גם את היומיום."],'announcement'=>['הודעה בראש האתר','T&L · תכשיטי מואסנייט'],'sets_title'=>['כותרת אזור הסטים',"תכשיטים\nשמשתלבים."],'sets_text'=>['תיאור אזור הסטים',"שרשראות, צמידים ועגילים.\nיחד או בנפרד."]] as $key=>$field){echo '<label for="tl-'.$key.'">'.esc_html($field[0]).'</label><textarea id="tl-'.$key.'" name="'.$key.'">'.esc_textarea(get_option('tl_'.$key,$field[1])).'</textarea>';}
     echo '<h3>תמונות האתר</h3><p>בחירת תמונה פותחת את ספריית המדיה של WordPress. אפשר להעלות קובץ מהמחשב או לבחור תמונה קיימת.</p>';
     foreach(['hero_image'=>'תמונה ראשית','hero_mobile_image'=>'תמונה נפרדת לטלפון — לא חובה','sets_image'=>'תמונת הסטים','about_image'=>'תמונת עמוד המותג'] as $key=>$label){$id=absint(get_option('tl_'.$key,0));$url=$id?wp_get_attachment_image_url($id,'medium'):'';echo '<div class="tl-image-field" style="padding:18px 0;border-bottom:1px solid #ddd"><strong>'.esc_html($label).'</strong><input type="hidden" name="'.esc_attr($key).'" value="'.esc_attr($id).'"><img src="'.esc_url($url?:'').'" alt="תצוגה מקדימה" style="max-width:190px;max-height:140px;object-fit:contain;display:block;margin:12px 0" '.($url?'':'hidden').'><button type="button" class="button tl-select-image">בחירת תמונה</button> <button type="button" class="button tl-remove-image">חזרה לתמונה המקורית</button><p class="tl-image-feedback" role="status"></p></div>';}
     $about=get_page_by_path('about');if($about)echo '<p><a href="'.esc_url(get_edit_post_link($about->ID)).'">עריכת הטקסט בעמוד על T&L</a></p>';

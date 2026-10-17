@@ -8,9 +8,9 @@ add_action('after_setup_theme', function () {
     register_nav_menus(['primary'=>'תפריט ראשי','footer'=>'תפריט תחתון']);
 });
 add_action('wp_enqueue_scripts', function () {
-    wp_enqueue_style('tl-luxury', get_stylesheet_uri(), [], '3.0.0');
-    wp_enqueue_style('tl-luxury-rtl',get_template_directory_uri().'/rtl.css',['tl-luxury'],'3.0.0');
-    wp_enqueue_script('tl-luxury', get_template_directory_uri().'/assets/store.js', [], '3.0.0', true);
+    wp_enqueue_style('tl-luxury', get_stylesheet_uri(), [], '4.0.0');
+    wp_enqueue_style('tl-luxury-rtl',get_template_directory_uri().'/rtl.css',['tl-luxury'],'4.0.0');
+    wp_enqueue_script('tl-luxury', get_template_directory_uri().'/assets/store.js', [], '4.0.0', true);
 });
 remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper',10);
 remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end',10);
@@ -19,7 +19,12 @@ add_action('woocommerce_before_main_content', function(){echo '<main id="tl-main
 add_action('woocommerce_after_main_content', function(){echo '</main>';},10);
 add_filter('loop_shop_columns', function(){return 4;});
 add_filter('loop_shop_per_page', function(){return 20;});
-function tl_text($key, $fallback) {return get_option('tl_'.$key, $fallback);}
+function tl_text($key, $fallback) {
+    $value=get_option('tl_'.$key, $fallback);
+    if($key==='hero_title' && preg_match('/^יוקרה שנמצאת\s+בפרטים\.?$/u',$value))return "יהלום הוא לא\nהדרך היחידה ליוקרה.";
+    return $value;
+}
+add_filter('the_content',function($content){return is_page('about')?str_replace('T&L — יוקרה שנמצאת בפרטים.','T&L — יהלום הוא לא הדרך היחידה ליוקרה.',$content):$content;});
 function tl_image($key,$fallback){$id=absint(get_option('tl_'.$key,0));$url=$id?wp_get_attachment_image_url($id,'full'):false;return $url?:get_template_directory_uri().'/assets/'.$fallback;}
 function tl_category_link($slug) {
     $term=get_term_by('slug',$slug,'product_cat');
