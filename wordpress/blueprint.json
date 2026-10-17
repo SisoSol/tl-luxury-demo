@@ -65,7 +65,7 @@
       "step": "setSiteOptions",
       "options": {
         "blogname": "T&L Luxury",
-        "blogdescription": "תכשיטי מויסנייט בגוני זהב וכסף",
+        "blogdescription": "תכשיטי מואסנייט בגוני זהב וכסף",
         "permalink_structure": "/%postname%/",
         "timezone_string": "Asia/Jerusalem",
         "blog_public": 0
