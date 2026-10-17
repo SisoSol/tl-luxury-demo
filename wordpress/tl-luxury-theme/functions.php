@@ -4,13 +4,16 @@ add_action('after_setup_theme', function () {
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('woocommerce');
+    add_theme_support('wc-product-gallery-zoom');
+    add_theme_support('wc-product-gallery-lightbox');
+    add_theme_support('wc-product-gallery-slider');
     add_theme_support('html5', ['search-form','gallery','caption','style','script']);
     register_nav_menus(['primary'=>'תפריט ראשי','footer'=>'תפריט תחתון']);
 });
 add_action('wp_enqueue_scripts', function () {
-    wp_enqueue_style('tl-luxury', get_stylesheet_uri(), [], '4.0.0');
-    wp_enqueue_style('tl-luxury-rtl',get_template_directory_uri().'/rtl.css',['tl-luxury'],'4.0.0');
-    wp_enqueue_script('tl-luxury', get_template_directory_uri().'/assets/store.js', [], '4.0.0', true);
+    wp_enqueue_style('tl-luxury', get_stylesheet_uri(), [], '5.0.0');
+    wp_enqueue_style('tl-luxury-rtl',get_template_directory_uri().'/rtl.css',['tl-luxury'],'5.0.0');
+    wp_enqueue_script('tl-luxury', get_template_directory_uri().'/assets/store.js', [], '5.0.0', true);
 });
 remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper',10);
 remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end',10);
@@ -26,6 +29,17 @@ function tl_text($key, $fallback) {
 }
 add_filter('the_content',function($content){return is_page('about')?str_replace('T&L — יוקרה שנמצאת בפרטים.','T&L — יהלום הוא לא הדרך היחידה ליוקרה.',$content):$content;});
 function tl_image($key,$fallback){$id=absint(get_option('tl_'.$key,0));$url=$id?wp_get_attachment_image_url($id,'full'):false;return $url?:get_template_directory_uri().'/assets/'.$fallback;}
+function tl_theme_sales_open(){return function_exists('tl_sales_are_open') && tl_sales_are_open();}
+function tl_public_page_url($slug){$page=get_page_by_path($slug);return $page && $page->post_status==='publish'?get_permalink($page):false;}
+add_action('woocommerce_single_product_summary',function(){
+    echo '<div class="tl-product-service">';
+    $sizes=tl_public_page_url('sizes');$delivery=tl_public_page_url('delivery');$contact=tl_public_page_url('contact');
+    if($sizes)echo '<a href="'.esc_url($sizes).'">מדריך מידות</a>';
+    if($delivery)echo '<a href="'.esc_url($delivery).'">משלוחים והחזרות</a>';
+    if($contact)echo '<a href="'.esc_url($contact).'">שאלה על התכשיט?</a>';
+    if(!tl_theme_sales_open())echo '<p>הרכישה באתר תיפתח בקרוב.</p>';
+    echo '</div>';
+},35);
 function tl_category_link($slug) {
     $term=get_term_by('slug',$slug,'product_cat');
     if ($term) { $url=get_term_link($term); if (!is_wp_error($url)) return $url; }
