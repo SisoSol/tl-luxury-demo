@@ -8,8 +8,12 @@ function tl_activate_store_tools() {
     add_option('tl_fulfilment', 'undecided', '', false);
 }
 
+function tl_is_nonproduction() { return wp_get_environment_type() !== 'production'; }
+
 function tl_sales_are_open() {
-    if (tl_is_demo() || get_option('tl_sales_state', 'closed') !== 'open') return false;
+    // A staging clone can contain the live database's open flag and payment settings.
+    // Do not mutate that copied state merely by reading it; the environment closes sales.
+    if (tl_is_demo() || tl_is_nonproduction() || get_option('tl_sales_state', 'closed') !== 'open') return false;
     $confirmed = get_option('tl_payment_launch_fingerprint', '');
     if (!$confirmed || !hash_equals($confirmed, tl_payment_config_fingerprint())) {
         tl_revoke_payment_acceptance('הגדרות הסליקה השתנו או טרם אושרו לפתיחה.');
@@ -17,6 +21,9 @@ function tl_sales_are_open() {
     }
     return true;
 }
+
+// No mail is dispatched by a local, development or staging copy, even after a live DB clone.
+add_filter('pre_wp_mail', function($return) { return tl_is_nonproduction() ? true : $return; }, 98);
 
 function tl_closed_message() { return 'הרכישה באתר תיפתח בקרוב.'; }
 
@@ -249,13 +256,14 @@ function tl_ready_policy_pages() {
 
 function tl_launch_readiness() {
     $checks = [];
-    $checks['runtime'] = ['label'=>'אחסון החנות', 'ready'=>!tl_is_demo(), 'detail'=>tl_is_demo() ? 'סביבת WordPress אישית בדפדפן; אינה שרת מכירה משותף.' : 'התוסף מותקן ב־WordPress. יש לאמת את תשתית האחסון בבדיקות ההשקה.', 'url'=>admin_url('site-health.php')];
+    $checks['runtime'] = ['label'=>'אחסון החנות', 'ready'=>!tl_is_demo() && !tl_is_nonproduction(), 'detail'=>tl_is_demo() ? 'סביבת WordPress אישית בדפדפן; אינה שרת מכירה משותף.' : (tl_is_nonproduction() ? 'זו סביבת בדיקה ('.wp_get_environment_type().'). קבלת הזמנות ושליחת דואר חסומות, גם אם הועתקו נתוני חנות פתוחה.' : 'התוסף מותקן ב־WordPress במצב production. יש לאמת את תשתית האחסון בבדיקות ההשקה.'), 'url'=>admin_url('site-health.php')];
     $url = wp_parse_url(home_url('/'));
     $public_https = ($url['scheme'] ?? '') === 'https' && !preg_match('/(?:localhost|127\.0\.0\.1|\.local$|\.test$)/i', $url['host'] ?? '');
     $checks['domain'] = ['label'=>'דומיין ו־HTTPS', 'ready'=>$public_https, 'detail'=>$public_https ? 'כתובת האתר משתמשת ב־HTTPS. תעודה, הפניות וחידוש נבדקים מול האחסון.' : 'נדרש דומיין החנות עם HTTPS תקין.', 'url'=>admin_url('options-general.php')];
     $business_ready = true;
     foreach (['name','id','phone','email','address'] as $field) if (!trim((string)get_option('tl_business_'.$field, ''))) $business_ready = false;
     if (!is_email(get_option('tl_business_email', ''))) $business_ready = false;
+    if (!tl_business_phone_is_valid(get_option('tl_business_phone', ''))) $business_ready = false;
     $checks['business'] = ['label'=>'פרטי העסק ושירות הלקוחות', 'ready'=>$business_ready, 'detail'=>'שם עסק, מספר עוסק/חברה, טלפון, דוא״ל וכתובת. הפרטים מוזנים למטה על ידי בעלי החנות.', 'url'=>'#tl-business'];
     $products = function_exists('wc_get_products') ? wc_get_products(['status'=>'publish','limit'=>-1,'return'=>'objects']) : [];
     $unready = [];
@@ -300,16 +308,47 @@ function tl_management_redirect($notice) {
     wp_safe_redirect(add_query_arg('tl_notice', sanitize_key($notice), admin_url('admin.php?page=tl-luxury')));
     exit;
 }
+function tl_can_change_sales_state($state) {
+    if ($state === 'closed') return current_user_can('manage_woocommerce');
+    if ($state === 'open') return current_user_can('manage_options');
+    return false;
+}
 
+function tl_business_phone_is_valid($phone) {
+    $digits = preg_replace('/\D/', '', $phone);
+    return (bool)preg_match('/^\+?[0-9\s().-]+$/', $phone) && strlen($digits) >= 8 && strlen($digits) <= 15;
+}
+function tl_normalize_business_data($input) {
+    $data = [];
+    foreach (['name'=>160,'id'=>40,'phone'=>40,'address'=>300,'hours'=>160] as $field=>$limit) $data[$field] = mb_substr(sanitize_text_field($input['business_'.$field] ?? ''), 0, $limit);
+    $email = sanitize_email(is_scalar($input['business_email'] ?? '') ? (string)($input['business_email'] ?? '') : '');
+    $data['email'] = is_email($email) ? $email : '';
+    $mode = sanitize_key($input['fulfilment'] ?? 'undecided');
+    $data['fulfilment'] = in_array($mode, ['delivery','pickup','both'], true) ? $mode : 'undecided';
+    return $data;
+}
+function tl_save_business_data($input) {
+    $data = tl_normalize_business_data($input);
+    $critical_changes = [];
+    foreach (['name','id','address'] as $field) if ((string)get_option('tl_business_'.$field, '') !== $data[$field]) $critical_changes[] = $field;
+    if (get_option('tl_fulfilment', 'undecided') !== $data['fulfilment']) $critical_changes[] = 'fulfilment';
+    $invalid = [];
+    foreach (['name','id','address','email'] as $field) if ($data[$field] === '') $invalid[] = $field;
+    if (!tl_business_phone_is_valid($data['phone'])) $invalid[] = 'phone';
+    if ($data['fulfilment'] === 'undecided') $invalid[] = 'fulfilment';
+    foreach ($data as $field=>$value) update_option($field === 'fulfilment' ? 'tl_fulfilment' : 'tl_business_'.$field, $value, false);
+    $review_required = (bool)($critical_changes || $invalid);
+    // Contact details and opening hours are routine work. A valid edit or no-op does not
+    // close a running store. Identity, address, fulfilment or invalid required data do.
+    if ($review_required) {
+        tl_close_sales('זהות העסק, כתובת או אופן האספקה השתנו, או שחסר פרט חובה תקין. נדרש אישור פתיחה מחדש.');
+        delete_option('tl_launch_confirmations');
+    }
+    return ['review_required'=>$review_required,'critical_changes'=>$critical_changes,'invalid_fields'=>$invalid];
+}
 add_action('admin_post_tl_save_business', function() {
     tl_admin_action_guard('tl_save_business');
-    foreach (['name'=>160,'id'=>40,'phone'=>40,'address'=>300,'hours'=>160] as $field=>$limit) update_option('tl_business_'.$field, mb_substr(sanitize_text_field(wp_unslash($_POST['business_'.$field] ?? '')), 0, $limit), false);
-    $email = sanitize_email(wp_unslash($_POST['business_email'] ?? ''));
-    update_option('tl_business_email', is_email($email) ? $email : '', false);
-    $mode = sanitize_key($_POST['fulfilment'] ?? 'undecided');
-    update_option('tl_fulfilment', in_array($mode, ['delivery','pickup','both'], true) ? $mode : 'undecided', false);
-    tl_close_sales('פרטי העסק או אופן האספקה עודכנו; נדרש אישור פתיחה מחדש.');
-    delete_option('tl_launch_confirmations');
+    tl_save_business_data(wp_unslash($_POST));
     tl_management_redirect('business_saved');
 });
 add_action('admin_post_tl_save_acceptance', function() {
@@ -321,12 +360,14 @@ add_action('admin_post_tl_save_acceptance', function() {
     tl_management_redirect('acceptance_saved');
 });
 add_action('admin_post_tl_change_sales_state', function() {
-    tl_admin_action_guard('tl_change_sales_state', true);
-    if (($_POST['sales_state'] ?? '') === 'closed') {
-        tl_close_sales('מנהל המערכת סגר את קבלת ההזמנות.');
+    $state = is_string($_POST['sales_state'] ?? null) ? sanitize_key(wp_unslash($_POST['sales_state'])) : '';
+    if (!tl_can_change_sales_state($state)) wp_die('אין הרשאה לביצוע הפעולה.', '', ['response'=>403]);
+    check_admin_referer('tl_change_sales_state');
+    if ($state === 'closed') {
+        tl_close_sales('מנהל החנות סגר את קבלת ההזמנות.');
         tl_management_redirect('closed');
     }
-    if (($_POST['sales_state'] ?? '') !== 'open' || !isset($_POST['understand_live_sales']) || !tl_can_launch()) {
+    if ($state !== 'open' || !isset($_POST['understand_live_sales']) || !tl_can_launch()) {
         tl_close_sales('יש להשלים את רשימת ההכנות ואת האישור לפני פתיחת ההזמנות.');
         tl_management_redirect('not_ready');
     }
@@ -407,7 +448,7 @@ add_shortcode('tl_business_contact', 'tl_business_contact_html');
 
 function tl_launch_dashboard() {
     $checks = tl_launch_readiness(); $ready_count = count(array_filter($checks, function($check) { return $check['ready']; }));
-    $notices = ['business_saved'=>'פרטי העסק נשמרו. ההזמנות סגורות עד לאישור ההשקה.','acceptance_saved'=>'אישורי הבדיקות נשמרו.','closed'=>'קבלת ההזמנות נסגרה.','not_ready'=>'ההזמנות לא נפתחו. יש להשלים את רשימת ההכנות.','opened'=>'החנות פתוחה לקבלת הזמנות.','pages_created'=>'הוכנו רק העמודים שהיו חסרים. תוכן קיים נשמר. עמודי המדיניות החדשים הם טיוטות.','zone_created'=>'אזור ישראל מוכן. אזור קיים לא שונה; לא נקבעו שיטה או מחיר.','zone_not_confirmed'=>'יצירת האזור דורשת אישור מפורש.'];
+    $notices = ['business_saved'=>'פרטי העסק נשמרו. מצב ההזמנות ומוכנות הפתיחה מוצגים למעלה.','acceptance_saved'=>'אישורי הבדיקות נשמרו.','closed'=>'קבלת ההזמנות נסגרה.','not_ready'=>'ההזמנות לא נפתחו. יש להשלים את רשימת ההכנות.','opened'=>'החנות פתוחה לקבלת הזמנות.','pages_created'=>'הוכנו רק העמודים שהיו חסרים. תוכן קיים נשמר. עמודי המדיניות החדשים הם טיוטות.','zone_created'=>'אזור ישראל מוכן. אזור קיים לא שונה; לא נקבעו שיטה או מחיר.','zone_not_confirmed'=>'יצירת האזור דורשת אישור מפורש.'];
     $notice = sanitize_key($_GET['tl_notice'] ?? '');
     if (isset($notices[$notice])) echo '<div class="notice notice-info"><p>'.esc_html($notices[$notice]).'</p></div>';
     echo '<section class="tl-panel tl-launch-panel"><h2>מוכנות לפתיחת החנות</h2><p class="tl-sales-status"><strong>'.(tl_sales_are_open() ? 'פתוחה להזמנות' : 'קטלוג פתוח · קבלת הזמנות סגורה').'</strong></p><p>האתר מאפשר להכיר את התכשיטים ולבנות סל. לפני הפתיחה לא מוצג טופס פרטי לקוח, לא נוצרת הזמנה ולא מתבצע תשלום דרך מסלולי הקופה.</p><p>'.esc_html($ready_count.' מתוך '.count($checks).' שלבי הכנה הושלמו.').'</p>';
@@ -423,7 +464,13 @@ function tl_launch_dashboard() {
     if (current_user_can('manage_options')) {
         echo '<form action="'.esc_url(admin_url('admin-post.php')).'" method="post">';wp_nonce_field('tl_change_sales_state');
         echo '<input type="hidden" name="action" value="tl_change_sales_state"><label><input type="checkbox" name="understand_live_sales" value="1"> אני מאשר/ת שהנתונים נבדקו ופתיחת החנות תאפשר הזמנות ותשלומים אמיתיים.</label><p><button class="button button-primary" name="sales_state" value="open" '.(tl_can_launch($checks)?'':'disabled').'>פתיחת החנות להזמנות</button> <button class="button" name="sales_state" value="closed">סגירת קבלת הזמנות</button></p></form>';
-    } else echo '<p class="tl-admin-note">מנהלי החנות מעדכנים מוצרים, תוכן ומשלוחים. רק מנהל המערכת פותח קבלת הזמנות אחרי השלמת הבדיקות.</p>';
+    } else {
+        if (tl_sales_are_open()) {
+            echo '<form action="'.esc_url(admin_url('admin-post.php')).'" method="post">';wp_nonce_field('tl_change_sales_state');
+            echo '<input type="hidden" name="action" value="tl_change_sales_state"><p><button class="button" name="sales_state" value="closed">עצירת קבלת הזמנות</button></p><p>הקטלוג והסל נשארים זמינים. פתיחה מחדש מתבצעת בידי מנהל מערכת אחרי בדיקת המוכנות.</p></form>';
+        }
+        echo '<p class="tl-admin-note">מנהלי החנות מעדכנים מוצרים, תוכן ומשלוחים ויכולים לעצור קבלת הזמנות. רק מנהל המערכת פותח קבלת הזמנות אחרי השלמת הבדיקות.</p>';
+    }
     echo '</section>';
     echo '<section class="tl-panel" id="tl-business"><h2>פרטי העסק ואספקה</h2><form method="post" action="'.esc_url(admin_url('admin-post.php')).'">';wp_nonce_field('tl_save_business');
     echo '<input type="hidden" name="action" value="tl_save_business">';

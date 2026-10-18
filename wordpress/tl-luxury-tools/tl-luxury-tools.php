@@ -2,7 +2,7 @@
 /**
  * Plugin Name: T&L — ניהול החנות
  * Description: A focused Hebrew WooCommerce dashboard and no-code storefront content editor. Demo seeding only runs when TL_LUXURY_DEMO is explicitly true.
- * Version: 6.0.0
+ * Version: 6.1.0
  * Requires PHP: 8.1
  * Requires Plugins: woocommerce
  * License: GPL-2.0-or-later
