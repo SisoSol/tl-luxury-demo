@@ -11,7 +11,9 @@ function tl_experience_settings(){
     $defaults=tl_experience_defaults();
     $saved=get_option('tl_experience',[]);
     if(!is_array($saved))$saved=[];
-    return array_merge(['reviewMode'=>'illustration','sampleReviews'=>array_column($defaults['reviews']??[],'text'),'realReviews'=>[],'realConfirmed'=>false,'films'=>[]],$saved);
+    $settings=array_merge(['reviewMode'=>'hidden','sampleReviews'=>array_column($defaults['reviews']??[],'text'),'realReviews'=>[],'realConfirmed'=>false,'films'=>[]],$saved);
+    if(!in_array($settings['reviewMode'],['hidden','real'],true))$settings['reviewMode']='hidden';
+    return $settings;
 }
 function tl_experience_text($value,$limit=600){return mb_substr(sanitize_textarea_field(is_scalar($value)?(string)$value:''),0,$limit);}
 function tl_experience_attachment($id,$kind){
@@ -24,13 +26,12 @@ function tl_experience_attachment($id,$kind){
 }
 function tl_experience_validate($input){
     if(!is_array($input))return new WP_Error('invalid','הנתונים שנשלחו אינם תקינים.');
-    $mode=$input['review_mode']??'illustration';
-    if(!in_array($mode,['hidden','illustration','real'],true))return new WP_Error('mode','יש לבחור מצב תצוגה תקין.');
-    $out=['reviewMode'=>$mode,'sampleReviews'=>[],'realReviews'=>[],'realConfirmed'=>false,'films'=>[]];
-    foreach(['sampleReviews'=>'sample_review','realReviews'=>'real_review'] as $key=>$field){
-        $values=is_array($input[$field]??null)?array_slice($input[$field],0,3):[];
-        foreach($values as $value){$text=tl_experience_text($value);if($text!=='')$out[$key][]=$text;}
-    }
+    $mode=$input['review_mode']??'hidden';
+    if(!in_array($mode,['hidden','real'],true))return new WP_Error('mode','יש לבחור מצב תצוגה תקין.');
+    $previous=tl_experience_settings();
+    $out=['reviewMode'=>$mode,'sampleReviews'=>is_array($previous['sampleReviews'])?$previous['sampleReviews']:[],'realReviews'=>[],'realConfirmed'=>false,'films'=>[]];
+    $values=is_array($input['real_review']??null)?array_slice($input['real_review'],0,3):[];
+    foreach($values as $value){$text=tl_experience_text($value);if($text!=='')$out['realReviews'][]=$text;}
     if($mode==='real'){
         if(($input['confirm_real']??'')!=='1'||!$out['realReviews'])return new WP_Error('attestation','כדי לפרסם המלצות אמיתיות יש להזין טקסט שהתקבל מלקוחה ולאשר רשות לפרסמו ללא שם.');
         $out['realConfirmed']=true;
@@ -56,10 +57,8 @@ function tl_experience_admin_screen(){
     $settings=tl_experience_settings();$defaults=tl_experience_defaults();
     echo '<section class="tl-panel" id="tl-experience"><h2>המלצות וסרטוני הקמפיין</h2><p>כל התוכן נשמר באותה חנות, דרך לוח הניהול הזה. אין צורך לערוך קוד.</p><form method="post" action="'.esc_url(admin_url('admin-post.php')).'">';
     wp_nonce_field('tl_save_experience');echo '<input type="hidden" name="action" value="tl_save_experience"><label for="tl-review-mode">תצוגת המלצות</label><select name="review_mode" id="tl-review-mode">';
-    foreach(['hidden'=>'הסתרת אזור ההמלצות','illustration'=>'נוסחים להמחשה — עם סימון ברור באתר','real'=>'המלצות אמיתיות, ללא שמות'] as $value=>$label)echo '<option value="'.esc_attr($value).'" '.selected($settings['reviewMode'],$value,false).'>'.esc_html($label).'</option>';
-    echo '</select><p>נוסחים להמחשה אינם המלצות של לקוחות. אין באתר דירוג כוכבים או סימון רכישה מאומתת.</p><details><summary>עריכת נוסחי ההמחשה</summary>';
-    for($i=0;$i<3;$i++)echo '<label for="tl-sample-'.$i.'">נוסח להמחשה '.($i+1).'</label><textarea maxlength="600" id="tl-sample-'.$i.'" name="sample_review[]">'.esc_textarea($settings['sampleReviews'][$i]??'').'</textarea>';
-    echo '</details><h3>המלצות שהתקבלו מלקוחות</h3><p>מזינים רק את הטקסט שהלקוחה אישרה. השם שלה אינו מוצג באתר.</p>';
+    foreach(['hidden'=>'הסתרת אזור ההמלצות','real'=>'המלצות אמיתיות, ללא שמות'] as $value=>$label)echo '<option value="'.esc_attr($value).'" '.selected($settings['reviewMode'],$value,false).'>'.esc_html($label).'</option>';
+    echo '</select><p>אזור ההמלצות מוסתר עד שמזינים המלצות שהתקבלו מלקוחות ומאשרים רשות לפרסמן. אין באתר דירוג כוכבים או סימון רכישה מאומתת.</p><h3>המלצות שהתקבלו מלקוחות</h3><p>מזינים רק את הטקסט שהלקוחה אישרה. השם שלה אינו מוצג באתר.</p>';
     for($i=0;$i<3;$i++)echo '<label for="tl-real-'.$i.'">המלצה אמיתית '.($i+1).'</label><textarea maxlength="600" id="tl-real-'.$i.'" name="real_review[]">'.esc_textarea($settings['realReviews'][$i]??'').'</textarea>';
     echo '<label style="display:flex;gap:10px;align-items:start"><input style="width:auto;margin-top:5px" type="checkbox" name="confirm_real" value="1">אני מאשר/ת שההמלצות האמיתיות התקבלו מלקוחות, ושיש לעסק רשות לפרסמן ללא שמות. נדרש אישור בכל שמירה במצב אמיתי.</label><h3>סרטוני קמפיין</h3><p>אפשר לבחור סרטון MP4 או WebM וכרזה מתוך ספריית המדיה. ברירת המחדל היא סרטון אווירה המבוסס על תמונת AI, ולא צילום של מוצר למכירה. אין הפעלה אוטומטית.</p>';
     foreach($defaults['films']??[] as $film){$slug=$film['id'];$saved=$settings['films'][$slug]??[];
@@ -78,8 +77,10 @@ function tl_experience_sections(){
         if($video)echo '<source src="'.esc_url($video).'" type="'.esc_attr(get_post_mime_type($id)).'">';else{echo '<source src="'.esc_url($assets.$film['webm']).'" type="video/webm"><source src="'.esc_url($assets.$film['mp4']).'" type="video/mp4">';}
         echo 'הדפדפן אינו תומך בווידאו.</video><figcaption><h3>'.esc_html($title).'</h3><p id="tl-film-desc-'.esc_attr($slug).'">'.esc_html($description).'</p><p class="tl-film-error" role="status" hidden>הסרטון לא נטען. אפשר לנסות שוב בעוד רגע.</p></figcaption></figure>';
     }echo '</div></section>';
-    $mode=$settings['reviewMode'];$real=$mode==='real'&&!empty($settings['realConfirmed']);$reviews=$real?$settings['realReviews']:($mode==='illustration'?$settings['sampleReviews']:[]);if(!$reviews)return;
-    echo '<section class="tl-section tl-customer-notes" aria-labelledby="tl-reviews-heading"><div class="tl-section-heading"><h2 id="tl-reviews-heading">לקוחות מספרות.</h2>'.(!$real?'<span class="tl-illustration-label">נוסחים להמחשה</span>':'').'</div>';
-    if(!$real)echo '<p class="tl-experience-note">הטקסטים הבאים הם דוגמאות לעיצוב האזור, לא המלצות שהתקבלו מלקוחות. בהמשך יוחלפו בהמלצות אמיתיות, ללא שמות.</p>';
-    echo '<div class="tl-review-grid">';foreach($reviews as $text)echo '<figure><blockquote><p>״'.esc_html($text).'״</p></blockquote><figcaption>'.($real?'המלצה ללא שם':'נוסח לדוגמה · ללא שם לקוחה').'</figcaption></figure>';echo '</div></section>';
+    if($settings['reviewMode']!=='real'||$settings['realConfirmed']!==true)return;
+    $stored=is_array($settings['realReviews'])?$settings['realReviews']:[];
+    $reviews=array_values(array_filter($stored,static function($text){return is_string($text)&&trim($text)!=='';}));
+    if(!$reviews)return;
+    echo '<section class="tl-section tl-customer-notes" aria-labelledby="tl-reviews-heading"><div class="tl-section-heading"><h2 id="tl-reviews-heading">לקוחות מספרות.</h2></div><div class="tl-review-grid">';
+    foreach($reviews as $text)echo '<figure><blockquote><p>״'.esc_html($text).'״</p></blockquote><figcaption>המלצה ללא שם</figcaption></figure>';echo '</div></section>';
 }

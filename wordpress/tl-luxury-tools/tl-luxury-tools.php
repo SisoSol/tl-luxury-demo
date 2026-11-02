@@ -2,7 +2,7 @@
 /**
  * Plugin Name: T&L — ניהול החנות
  * Description: A focused Hebrew WooCommerce dashboard and no-code storefront content editor. Demo seeding only runs when TL_LUXURY_DEMO is explicitly true.
- * Version: 6.2.0
+ * Version: 6.2.1
  * Requires PHP: 8.1
  * Requires Plugins: woocommerce
  * License: GPL-2.0-or-later
@@ -14,7 +14,7 @@ require_once __DIR__.'/production.php';
 require_once __DIR__.'/experience.php';
 register_activation_hook(__FILE__, 'tl_activate_store_tools');
 add_action('before_woocommerce_init',function(){if(class_exists('Automattic\\WooCommerce\\Utilities\\FeaturesUtil'))\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables',__FILE__,true);});
-add_action('admin_enqueue_scripts',function($hook){if($hook==='toplevel_page_tl-luxury'&&current_user_can('manage_woocommerce')){wp_enqueue_media();wp_enqueue_style('tl-management',plugins_url('dashboard.css',__FILE__),[],'6.2.0');wp_enqueue_script('tl-media-editor',plugins_url('media-editor.js',__FILE__),['jquery','media-editor'],'6.2.0',true);}});
+add_action('admin_enqueue_scripts',function($hook){if($hook==='toplevel_page_tl-luxury'&&current_user_can('manage_woocommerce')){wp_enqueue_media();wp_enqueue_style('tl-management',plugins_url('dashboard.css',__FILE__),[],'6.2.1');wp_enqueue_script('tl-media-editor',plugins_url('media-editor.js',__FILE__),['jquery','media-editor'],'6.2.1',true);}});
 add_action('admin_menu',function(){add_menu_page('T&L — ניהול החנות','T&L — החנות','manage_woocommerce','tl-luxury','tl_management_screen','dashicons-store',3);});
 function tl_is_shop_management_user($user){return $user instanceof WP_User && $user->has_cap('manage_woocommerce') && !$user->has_cap('manage_options');}
 function tl_is_default_admin_destination($url){
