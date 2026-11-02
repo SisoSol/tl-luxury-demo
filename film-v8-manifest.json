@@ -1,0 +1,141 @@
+{
+  "version": 8,
+  "production": "AI-created still imagery with edited camera-motion lookbooks",
+  "not_generative_video_footage": true,
+  "label_en": "AI-created campaign imagery · edited motion lookbook",
+  "label_he": "דימויי קמפיין שנוצרו ב-AI · לוקבוק בתנועה ערוכה",
+  "duration_seconds": 9,
+  "frames_per_second": 24,
+  "audio": false,
+  "player_contract": {
+    "autoplay": false,
+    "user_initiated": true,
+    "native_controls": true,
+    "poster_static": true,
+    "offscreen_pause": true,
+    "prefers_reduced_motion": "static poster until explicit play",
+    "preload": "none",
+    "audio": false
+  },
+  "original_assets_unchanged": true,
+  "assets": [
+    {
+      "kind": "gold",
+      "composition": "portrait",
+      "metal_palette": "balanced gold and silver",
+      "filename_note": "Gold/silver are stable asset identifiers, not exclusive metal descriptions.",
+      "motion_verification": {
+        "sample_seconds": [
+          0,
+          4,
+          8
+        ],
+        "first_last_mean_absolute_difference": 7.1199,
+        "verified_moving_frames": true
+      },
+      "source": {
+        "sha256": "cc3f002583c1c7dc58151cfff747f12281c8a4ac6e5222700dcba454e8f81d93",
+        "generation_tool": "built-in image_gen"
+      },
+      "still": {
+        "url": "/campaign-v8-gold.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 118392,
+        "sha256": "ee31d93ed82940c9c333854df42bdfddc73963ddd27bc61cef0055361f0aff59"
+      },
+      "poster": {
+        "url": "/film-v8-gold-poster.webp",
+        "width": 1280,
+        "height": 854,
+        "bytes": 61214,
+        "sha256": "894b660a32ef537c6bb40d9a3e2965dd71ff3df6e472e64dd25441d52b12ddd3"
+      },
+      "films": [
+        {
+          "url": "/film-v8-gold.mp4",
+          "type": "video/mp4",
+          "codec": "h264",
+          "duration_seconds": 9.0,
+          "width": 1280,
+          "height": 854,
+          "bytes": 386434,
+          "sha256": "c52b8209758835764859a47d8324f8266772a8e20b7d62b1bf07de39ac5d7ed5",
+          "audio_streams": 0,
+          "under_one_megabyte": true
+        },
+        {
+          "url": "/film-v8-gold.webm",
+          "type": "video/webm",
+          "codec": "vp9",
+          "duration_seconds": 9.0,
+          "width": 1280,
+          "height": 854,
+          "bytes": 150240,
+          "sha256": "fd028643958fab8e6f98d2fa0c72f8f79720ab3682eb79ec18c4447f692c1f4b",
+          "audio_streams": 0,
+          "under_one_megabyte": true
+        }
+      ]
+    },
+    {
+      "kind": "silver",
+      "composition": "still-life",
+      "metal_palette": "balanced gold and silver",
+      "filename_note": "Gold/silver are stable asset identifiers, not exclusive metal descriptions.",
+      "motion_verification": {
+        "sample_seconds": [
+          0,
+          4,
+          8
+        ],
+        "first_last_mean_absolute_difference": 11.0537,
+        "verified_moving_frames": true
+      },
+      "source": {
+        "sha256": "74d78bfe23f03c6b287dcc4905127d4c3cd61e7c2ba8b22e2324862c53671c63",
+        "generation_tool": "built-in image_gen"
+      },
+      "still": {
+        "url": "/campaign-v8-silver.webp",
+        "width": 1536,
+        "height": 1024,
+        "bytes": 270330,
+        "sha256": "68fdda79463461f97cfd729573100717716f4e90099f8ab05ad6e587dead2080"
+      },
+      "poster": {
+        "url": "/film-v8-silver-poster.webp",
+        "width": 1280,
+        "height": 854,
+        "bytes": 161270,
+        "sha256": "59079f621aabe8f7f22f757ab35ef92e6f2bc3739c89a7109c97d7f4451c35aa"
+      },
+      "films": [
+        {
+          "url": "/film-v8-silver.mp4",
+          "type": "video/mp4",
+          "codec": "h264",
+          "duration_seconds": 9.0,
+          "width": 1280,
+          "height": 854,
+          "bytes": 757812,
+          "sha256": "a605764521a0e12619ecdb5ea91e76cd990db5cbe6236a5d38b1b5c0f19b0bed",
+          "audio_streams": 0,
+          "under_one_megabyte": true
+        },
+        {
+          "url": "/film-v8-silver.webm",
+          "type": "video/webm",
+          "codec": "vp9",
+          "duration_seconds": 9.0,
+          "width": 1280,
+          "height": 854,
+          "bytes": 332919,
+          "sha256": "7bca35a2f063fa1bae03a0b32d3793add8855113fc9a8aea8e8123205b714e76",
+          "audio_streams": 0,
+          "under_one_megabyte": true
+        }
+      ]
+    }
+  ]
+}

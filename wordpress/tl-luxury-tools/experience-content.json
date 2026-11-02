@@ -1,0 +1,12 @@
+{
+  "reviewsMode": "illustration",
+  "reviews": [
+    {"id":"r1","text":"אהבתי את העיצוב הנקי ואת השילוב בין גוון זהב לכסף. בדיוק הסגנון שחיפשתי."},
+    {"id":"r2","text":"תכשיט עדין עם נוכחות. קל לדמיין אותו גם עם לבוש יומיומי וגם בערב."},
+    {"id":"r3","text":"השילוב של השרשרת והצמיד נותן מראה שלם, בלי להעמיס."}
+  ],
+  "films": [
+    {"id":"gold","title":"רגע של אור","description":"שרשרת בגוון כסף וצמיד בגוון זהב, בתצלום אווירה על בד שנהב.","poster":"film-v8-gold-poster.webp","mp4":"film-v8-gold.mp4","webm":"film-v8-gold.webm"},
+    {"id":"silver","title":"זהב וכסף, יחד","description":"שרשרת, צמיד ועגילים בתצלום אווירה על משטח אבן ובד בהיר.","poster":"film-v8-silver-poster.webp","mp4":"film-v8-silver.mp4","webm":"film-v8-silver.webm"}
+  ]
+}
