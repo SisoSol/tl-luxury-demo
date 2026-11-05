@@ -1,0 +1,24 @@
+{
+  "hero": {
+    "poster": "hero-v10-poster.webp",
+    "mp4": "hero-v10.mp4",
+    "webm": "hero-v10.webm",
+    "mobileMp4": "hero-v10-mobile.mp4",
+    "mobilePoster": "hero-v10-mobile-poster.webp",
+    "title": "יהלום הוא לא\nהדרך היחידה ליוקרה.",
+    "text": "נוצרו לרגעים המיוחדים,\nונועדו להאיר גם את היומיום.",
+    "ctaLabel": "גלי את הקולקציה",
+    "collection": "all"
+  },
+  "look": {
+    "image": "look-v10.webp",
+    "alt": "צילום אווירה של טבעת סוליטר, צמיד בגוון זהב ושרשרת בגוון כסף",
+    "title": "התכשיטים שמרכיבים את הלוק.",
+    "text": "לחצי על נקודה כדי לגלות את התכשיט.",
+    "hotspots": [
+      {"id":"ring","productId":"tl-001","label":"הטבעת","x":46.1,"y":75.0},
+      {"id":"bracelet","productId":"tl-014","label":"הצמיד","x":67.7,"y":76.8},
+      {"id":"necklace","productId":"tl-013","label":"השרשרת","x":50.5,"y":45.8}
+    ]
+  }
+}

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: T&L — ניהול החנות
  * Description: A focused Hebrew WooCommerce dashboard and no-code storefront content editor. Demo seeding only runs when TL_LUXURY_DEMO is explicitly true.
- * Version: 6.2.1
+ * Version: 6.3.0
  * Requires PHP: 8.1
  * Requires Plugins: woocommerce
  * License: GPL-2.0-or-later
@@ -12,9 +12,10 @@ function tl_is_demo(){return defined('TL_LUXURY_DEMO') && TL_LUXURY_DEMO;}
 function tl_brand_story(){ $story=json_decode(file_get_contents(__DIR__.'/brand-story.json'),true);return implode("\n\n",$story['paragraphs']??[]); }
 require_once __DIR__.'/production.php';
 require_once __DIR__.'/experience.php';
+require_once __DIR__.'/shoppable.php';
 register_activation_hook(__FILE__, 'tl_activate_store_tools');
 add_action('before_woocommerce_init',function(){if(class_exists('Automattic\\WooCommerce\\Utilities\\FeaturesUtil'))\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables',__FILE__,true);});
-add_action('admin_enqueue_scripts',function($hook){if($hook==='toplevel_page_tl-luxury'&&current_user_can('manage_woocommerce')){wp_enqueue_media();wp_enqueue_style('tl-management',plugins_url('dashboard.css',__FILE__),[],'6.2.1');wp_enqueue_script('tl-media-editor',plugins_url('media-editor.js',__FILE__),['jquery','media-editor'],'6.2.1',true);}});
+add_action('admin_enqueue_scripts',function($hook){if($hook==='toplevel_page_tl-luxury'&&current_user_can('manage_woocommerce')){wp_enqueue_media();wp_enqueue_style('tl-management',plugins_url('dashboard.css',__FILE__),[],'6.3.0');wp_enqueue_script('tl-media-editor',plugins_url('media-editor.js',__FILE__),['jquery','media-editor'],'6.3.0',true);}});
 add_action('admin_menu',function(){add_menu_page('T&L — ניהול החנות','T&L — החנות','manage_woocommerce','tl-luxury','tl_management_screen','dashicons-store',3);});
 function tl_is_shop_management_user($user){return $user instanceof WP_User && $user->has_cap('manage_woocommerce') && !$user->has_cap('manage_options');}
 function tl_is_default_admin_destination($url){
@@ -65,6 +66,7 @@ function tl_management_screen(){
     $about=get_page_by_path('about');if($about)echo '<p><a href="'.esc_url(get_edit_post_link($about->ID)).'">עריכת הטקסט בעמוד על T&L</a></p>';
     echo '<label for="tl-contact">מספר WhatsApp עסקי, כולל קידומת המדינה</label><input id="tl-contact" name="contact" inputmode="numeric" value="'.esc_attr(get_option('tl_contact','')).'"><p>למשל 9725… ללא סימן +. אם השדה ריק, לא מופיע קישור WhatsApp.</p><button class="button button-primary" type="submit">שמירת השינויים</button> <a class="button" href="'.esc_url(home_url('/')).'">לצפייה בחנות</a></form></section>';
     tl_experience_admin_screen();
+    tl_shoppable_admin_screen();
     echo '<section class="tl-panel"><h2>מנהלי החנות, חשבונות נפרדים</h2><div class="tl-users">';$managers=get_users(['role'=>'shop_manager','number'=>10]);foreach($managers as $manager) echo '<div class="tl-user"><strong>'.esc_html($manager->display_name).'</strong><p>'.esc_html($manager->user_login).' · מנהל חנות</p></div>';if(!$managers)echo '<p>אחרי התקנת החנות יוצרים שני חשבונות אישיים בתפקיד מנהל חנות. התוסף אינו יוצר משתמשים או סיסמאות.</p>';echo '</div><p>כל מנהל מתחבר לחשבון שלו. שניהם עורכים את אותם מוצרים, הזמנות וקופונים בחנות שמותקנת על שרת. התקנת תוספים ושינויים בתשתית נשארים אצל בעל הרשאת מנהל מערכת.</p></section>';
     echo '<details class="tl-how-it-works tl-connections-guide"><summary>שיווק וחיבור שירותים — מה מגדירים עם המתכנת?</summary><div><p>הניהול היומיומי נשאר כאן. חיבור סליקה, שליחויות, דוא״ל ופרסום נעשה מתוך אותה חנות, באמצעות השירותים שבעלי העסק בוחרים.</p><ul class="tl-checklist"><li><a href="'.esc_url(admin_url('edit.php?post_type=shop_coupon')).'">קופונים</a> — אפשר ליצור ולערוך כאן, ללא חיבור שירות נוסף.</li><li>קטלוגים ב־Google וב־Meta, דיוור ומדידת פרסום מצריכים חיבור חשבונות והגדרת הסכמות. הם אינם מערכת נוספת לעריכת החנות.</li><li>PayPlus מטפל בתשלום אחרי חיבור ואישור. הזמנות, מלאי ומצב הטיפול נשארים בניהול החנות.</li><li>חיבור שירות אינו מעיד שהבדיקות הושלמו. מצב המוכנות מופיע ברשימת ההכנות למעלה.</li></ul>';
     if(current_user_can('manage_options'))echo '<p class="tl-admin-note">למנהל המערכת: <a href="'.esc_url(admin_url('admin.php?page=wc-settings&tab=checkout')).'">הגדרות אמצעי תשלום</a> · <a href="https://wordpress.org/plugins/payplus-payment-gateway/" target="_blank" rel="noopener noreferrer">תוסף PayPlus הרשמי</a> · <a href="https://docs.payplus.co.il/reference/post_paymentpages-generatelink" target="_blank" rel="noopener noreferrer">תיעוד API</a>. מפתחות החיבור נשמרים בשרת בלבד. בדיקות תשלום, הודעות שרת והחזר מבצעים בסביבת הבדיקה לפני הפתיחה.</p>';
