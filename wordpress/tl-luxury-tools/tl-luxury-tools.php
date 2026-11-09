@@ -2,7 +2,7 @@
 /**
  * Plugin Name: T&L — ניהול החנות
  * Description: A focused Hebrew WooCommerce dashboard and no-code storefront content editor. Demo seeding only runs when TL_LUXURY_DEMO is explicitly true.
- * Version: 6.3.0
+ * Version: 6.4.0
  * Requires PHP: 8.1
  * Requires Plugins: woocommerce
  * License: GPL-2.0-or-later
@@ -13,9 +13,10 @@ function tl_brand_story(){ $story=json_decode(file_get_contents(__DIR__.'/brand-
 require_once __DIR__.'/production.php';
 require_once __DIR__.'/experience.php';
 require_once __DIR__.'/shoppable.php';
+require_once __DIR__.'/operations.php';
 register_activation_hook(__FILE__, 'tl_activate_store_tools');
 add_action('before_woocommerce_init',function(){if(class_exists('Automattic\\WooCommerce\\Utilities\\FeaturesUtil'))\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables',__FILE__,true);});
-add_action('admin_enqueue_scripts',function($hook){if($hook==='toplevel_page_tl-luxury'&&current_user_can('manage_woocommerce')){wp_enqueue_media();wp_enqueue_style('tl-management',plugins_url('dashboard.css',__FILE__),[],'6.3.0');wp_enqueue_script('tl-media-editor',plugins_url('media-editor.js',__FILE__),['jquery','media-editor'],'6.3.0',true);}});
+add_action('admin_enqueue_scripts',function($hook){if($hook==='toplevel_page_tl-luxury'&&current_user_can('manage_woocommerce')){wp_enqueue_media();wp_enqueue_style('tl-management',plugins_url('dashboard.css',__FILE__),[],'6.4.0');wp_enqueue_script('tl-media-editor',plugins_url('media-editor.js',__FILE__),['jquery','media-editor'],'6.4.0',true);}});
 add_action('admin_menu',function(){add_menu_page('T&L — ניהול החנות','T&L — החנות','manage_woocommerce','tl-luxury','tl_management_screen','dashicons-store',3);});
 function tl_is_shop_management_user($user){return $user instanceof WP_User && $user->has_cap('manage_woocommerce') && !$user->has_cap('manage_options');}
 function tl_is_default_admin_destination($url){
@@ -58,6 +59,7 @@ function tl_management_screen(){
     $links=[['edit.php?post_type=product','מוצרים ותמונות','שם, צילום, מחיר, מידות ומלאי'],['#tl-home-editor','תוכן ותמונות האתר','עמוד הבית, תמונות המותג וטקסטים'],['admin.php?page=wc-orders','הזמנות','צפייה בהזמנות ועדכון הטיפול בהן'],['edit.php?post_type=shop_coupon','קופונים','הנחות, תוקף והגבלת שימוש'],['edit-tags.php?taxonomy=product_cat&post_type=product','קולקציות','סידור התכשיטים לפי סוג וקולקציה'],['admin.php?page=wc-admin&path=%2Fanalytics%2Foverview','דוחות','מכירות והזמנות שהתקבלו בחנות']];
     echo '<h2 class="tl-daily-heading">מה רוצים לעדכן?</h2><div class="tl-actions" aria-label="פעולות יומיומיות בחנות">';foreach($links as $item){$url=str_starts_with($item[0],'#')?$item[0]:admin_url($item[0]);echo '<a class="tl-action" href="'.esc_url($url).'"><strong>'.esc_html($item[1]).'</strong><span>'.esc_html($item[2]).'</span></a>';}echo '</div>';
     echo '<nav class="tl-management-links" aria-label="כלים נוספים בחנות"><a href="'.esc_url(admin_url('upload.php')).'">ספריית התמונות</a><a href="#tl-business">פרטי העסק ואספקה</a><a href="'.esc_url(admin_url('admin.php?page=wc-settings&tab=shipping')).'">משלוחים ואיסוף עצמי</a><a href="'.esc_url(home_url('/')).'">צפייה בחנות</a></nav>';
+    tl_operations_admin_screen();
     tl_launch_dashboard();
     echo '<section class="tl-panel" id="tl-home-editor"><h2>תוכן ותמונות האתר</h2><p>העריכה נשמרת כאן, באותה חנות. את פרטי התכשיטים עצמם עורכים דרך ״מוצרים ותמונות״.</p><form action="'.esc_url(admin_url('admin-post.php')).'" method="post">';wp_nonce_field('tl_save_content');echo '<input type="hidden" name="action" value="tl_save_content">';
     foreach(['hero_title'=>['כותרת ראשית',"יהלום הוא לא\nהדרך היחידה ליוקרה."],'hero_text'=>['טקסט פתיחה',"נוצרו לרגעים המיוחדים,\nונועדו להאיר גם את היומיום."],'announcement'=>['הודעה בראש האתר','T&L · תכשיטי מואסנייט'],'sets_title'=>['כותרת אזור הסטים',"תכשיטים\nשמשתלבים."],'sets_text'=>['תיאור אזור הסטים',"שרשראות, צמידים ועגילים.\nיחד או בנפרד."]] as $key=>$field){echo '<label for="tl-'.$key.'">'.esc_html($field[0]).'</label><textarea id="tl-'.$key.'" name="'.$key.'">'.esc_textarea(get_option('tl_'.$key,$field[1])).'</textarea>';}
