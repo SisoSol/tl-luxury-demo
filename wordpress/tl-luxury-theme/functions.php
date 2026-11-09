@@ -11,11 +11,11 @@ add_action('after_setup_theme', function () {
     register_nav_menus(['primary'=>'תפריט ראשי','footer'=>'תפריט תחתון']);
 });
 add_action('wp_enqueue_scripts', function () {
-    wp_enqueue_style('tl-luxury', get_stylesheet_uri(), [], '6.4.1');
-    wp_enqueue_style('tl-luxury-rtl',get_template_directory_uri().'/rtl.css',['tl-luxury'],'6.4.1');
-    wp_enqueue_style('tl-experience',get_template_directory_uri().'/assets/experience.css',['tl-luxury-rtl'],'6.4.1');
-    wp_enqueue_script('tl-experience',get_template_directory_uri().'/assets/experience.js',[],'6.4.1',true);
-    wp_enqueue_script('tl-luxury', get_template_directory_uri().'/assets/store.js', [], '6.4.1', true);
+    wp_enqueue_style('tl-luxury', get_stylesheet_uri(), [], '6.4.2');
+    wp_enqueue_style('tl-luxury-rtl',get_template_directory_uri().'/rtl.css',['tl-luxury'],'6.4.2');
+    wp_enqueue_style('tl-experience',get_template_directory_uri().'/assets/experience.css',['tl-luxury-rtl'],'6.4.2');
+    wp_enqueue_script('tl-experience',get_template_directory_uri().'/assets/experience.js',[],'6.4.2',true);
+    wp_enqueue_script('tl-luxury', get_template_directory_uri().'/assets/store.js', [], '6.4.2', true);
 });
 remove_action('woocommerce_before_main_content', 'woocommerce_output_content_wrapper',10);
 remove_action('woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end',10);

@@ -49,12 +49,12 @@ add_action('admin_enqueue_scripts',function($hook){
     if($hook!=='toplevel_page_tl-luxury'||!current_user_can('manage_woocommerce'))return;
     wp_enqueue_media();wp_enqueue_script('wc-enhanced-select');
     wp_enqueue_style('woocommerce_admin_styles');
-    wp_enqueue_script('tl-shoppable-admin',plugins_url('shoppable-admin.js',__FILE__),['jquery','media-editor','wc-enhanced-select'],'6.4.1',true);
+    wp_enqueue_script('tl-shoppable-admin',plugins_url('shoppable-admin.js',__FILE__),['jquery','media-editor','wc-enhanced-select'],'6.4.2',true);
 },30);
 add_action('wp_enqueue_scripts',function(){
     if(get_template()!=='tl-luxury-theme')return;
-    wp_enqueue_style('tl-shoppable',get_template_directory_uri().'/assets/shoppable.css',['tl-experience'],'6.4.1');
-    wp_enqueue_script('tl-shoppable',get_template_directory_uri().'/assets/shoppable.js',[],'6.4.1',true);
+    wp_enqueue_style('tl-shoppable',get_template_directory_uri().'/assets/shoppable.css',['tl-experience'],'6.4.2');
+    wp_enqueue_script('tl-shoppable',get_template_directory_uri().'/assets/shoppable.js',[],'6.4.2',true);
 },30);
 function tl_shoppable_media_field($field,$label,$id,$video=false){
     echo '<div class="tl-shoppable-media" data-kind="'.($video?'video':'image').'" data-field="'.esc_attr($field).'"><strong>'.esc_html($label).'</strong><input type="hidden" name="'.esc_attr($field).'" value="'.absint($id).'"><p class="tl-shoppable-filename">'.esc_html($id?get_the_title($id):'קובץ הקמפיין המקורי').'</p><button type="button" class="button tl-shoppable-select">בחירה מספריית המדיה</button> <button type="button" class="button tl-shoppable-reset">חזרה למקור</button><p role="status" class="tl-shoppable-feedback"></p></div>';

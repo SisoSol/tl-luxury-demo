@@ -13,19 +13,19 @@
 /* One real portrait frame on phones; copy never stretches the film or covers its jewelry. */
 .tl-video-hero-frame{position:absolute;inset:0;z-index:-1;overflow:hidden}.tl-video-hero-message>span{display:block}.tl-video-hero-message{max-width:100%;min-width:0}.tl-video-hero-status{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(max-width:767px){
-.tl-video-hero,.tl-video-hero-portrait{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;min-height:0;max-height:none;height:auto;background:#111;isolation:isolate}
+.tl-video-hero,.tl-video-hero-portrait{--tl-cta-lift:20%;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;min-height:0;max-height:none;height:auto;background:#111;isolation:isolate}
 .tl-video-hero-frame{position:relative;inset:auto;grid-area:1/1;aspect-ratio:var(--tl-video-ratio,9 / 16);width:100%;height:auto;z-index:0}
 .tl-video-hero-frame .tl-video-hero-media,.tl-video-hero-frame .tl-video-hero-still{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1}
 .tl-video-hero-backdrop{display:none}.tl-video-hero-frame .tl-video-hero-still{z-index:0}.tl-video-hero-frame .tl-video-hero-shade{z-index:2;pointer-events:none;background:linear-gradient(0deg,rgba(0,0,0,.58),transparent 36%)}
 .tl-video-hero-content,.tl-video-hero-portrait .tl-video-hero-content{display:contents}
 .tl-video-hero-message{grid-area:2/1;background:#111;color:#fff;padding:35px 26px 40px;min-width:0}.tl-video-hero-message>span{margin-bottom:20px}.tl-video-hero-message h1{margin-bottom:22px}.tl-video-hero-message p{margin-bottom:0}
-.tl-video-hero-content>.tl-button{grid-area:1/1;align-self:end;justify-self:center;position:relative;z-index:3;margin:0 24px 24px;max-width:calc(100% - 48px);min-height:44px;text-align:center}
+.tl-video-hero-content>.tl-button{grid-area:1/1;align-self:end;justify-self:center;position:relative;bottom:var(--tl-cta-lift);z-index:3;margin:0 24px 24px;max-width:calc(100% - 48px);min-height:44px;text-align:center}
 .tl-video-hero-motion-control:focus-visible{grid-area:1/1;position:relative;align-self:start;justify-self:start;left:auto;bottom:auto;z-index:4;margin:16px;max-width:calc(100% - 32px)}
 }
 
 /* A rotated phone keeps the complete film beside compact, scrollable copy. */
 @media(max-width:1023px) and (orientation:landscape) and (max-height:600px){
-.tl-video-hero,.tl-video-hero-portrait{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto;min-height:0;height:auto;max-height:none;align-items:start;background:#111}
+.tl-video-hero,.tl-video-hero-portrait{--tl-cta-lift:0%;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto;min-height:0;height:auto;max-height:none;align-items:start;background:#111}
 .tl-video-hero-frame{grid-area:1/2;position:relative;inset:auto;justify-self:center;align-self:start;width:min(100%,calc((100svh - 112px) * (var(--tl-video-ratio,9 / 16))));height:auto;aspect-ratio:var(--tl-video-ratio,9 / 16);max-height:calc(100svh - 112px);z-index:0}
 .tl-video-hero-frame .tl-video-hero-media,.tl-video-hero-frame .tl-video-hero-still{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:1}.tl-video-hero-frame .tl-video-hero-still{z-index:0}.tl-video-hero-backdrop{display:none}.tl-video-hero-frame .tl-video-hero-shade{display:none}
 .tl-video-hero-content,.tl-video-hero-portrait .tl-video-hero-content{display:block;grid-area:1/1;width:auto;min-height:0;max-width:none;padding:22px 20px;background:#111}
